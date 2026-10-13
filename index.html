@@ -138,13 +138,13 @@ h1{font-size:clamp(1.9rem,7vw,3rem)} h2{font-size:clamp(1.6rem,6vw,2.4rem)}
 .cine-nav.next{right:max(14px,env(safe-area-inset-right))}
 @media(max-width:560px){.cine-nav{width:44px;height:44px;margin-top:-22px;top:42%}}
 
-/* ====== REALISTIC VINYL PLAYER ====== */
+/* ====== REALISTIC VINYL PLAYER (Optimized for Mobile/iPad) ====== */
 .minimal-player {
   display: flex; flex-direction: column; align-items: center; gap: 24px;
   background: var(--paper); padding: 36px 28px; border-radius: 24px; box-shadow: var(--shadow);
   width: min(90vw, 360px); margin: 0 auto;
 }
-.record-wrapper { position: relative; width: 220px; height: 220px; flex: none; cursor: pointer; margin-bottom: 10px; }
+.record-wrapper { position: relative; width: 220px; height: 220px; flex: none; cursor: pointer; margin-bottom: 10px; will-change: transform; }
 
 /* The spinning vinyl base */
 .vinyl {
@@ -155,25 +155,24 @@ h1{font-size:clamp(1.9rem,7vw,3rem)} h2{font-size:clamp(1.6rem,6vw,2.4rem)}
   animation: spin 4s linear infinite; 
   animation-play-state: paused;
   position: relative;
+  will-change: transform;
 }
 .vinyl.spin { animation-play-state: running; }
 
-/* Spinning light reflection on the vinyl grooves */
 .vinyl::before {
   content: ""; position: absolute; inset: 0; border-radius: 50%;
   background: conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.05) 45deg, transparent 90deg, rgba(255,255,255,0.05) 225deg, transparent 270deg);
   pointer-events: none;
 }
-/* Stationary Glare over the entire record */
 .record-wrapper::after {
   content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
   background: conic-gradient(from 120deg, transparent 0deg, rgba(255,255,255,0.15) 15deg, transparent 30deg, transparent 180deg, rgba(255,255,255,0.15) 195deg, transparent 210deg);
 }
 
-/* Center label with the Girlfriend's Photo (UPDATED TO PNG LINK) */
+/* Center label with the new compressed JPG image */
 .vinyl-label {
   width: 80px; height: 80px; border-radius: 50%;
-  background-image: url('https://cruvazcqzbnzubxpdlum.supabase.co/storage/v1/object/public/memory_media/IMG_9437.png');
+  background-image: url('https://cruvazcqzbnzubxpdlum.supabase.co/storage/v1/object/public/memory_media/66.jpg');
   background-size: cover; background-position: center;
   border: 2px solid #111; position: relative; z-index: 2;
 }
@@ -183,7 +182,7 @@ h1{font-size:clamp(1.9rem,7vw,3rem)} h2{font-size:clamp(1.6rem,6vw,2.4rem)}
 }
 
 /* Realistic Tonearm */
-.tonearm { position: absolute; top: -5px; right: -10px; width: 30px; height: 130px; transform-origin: 15px 15px; transform: rotate(-15deg); transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); z-index: 10; pointer-events: none; }
+.tonearm { position: absolute; top: -5px; right: -10px; width: 30px; height: 130px; transform-origin: 15px 15px; transform: rotate(-15deg); transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); z-index: 10; pointer-events: none; will-change: transform; }
 .tonearm-pivot { position: absolute; top: 0; left: 0; width: 30px; height: 30px; background: #ccc; border-radius: 50%; box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px #fff; border: 3px solid #888; }
 .tonearm-wand { position: absolute; top: 15px; left: 13px; width: 5px; height: 90px; background: linear-gradient(90deg, #999, #eee, #999); border-radius: 2.5px; box-shadow: 2px 2px 3px rgba(0,0,0,0.3); }
 .tonearm-head { position: absolute; bottom: 8px; left: 8px; width: 12px; height: 24px; background: #222; border-radius: 3px; transform: rotate(22deg); box-shadow: 2px 2px 3px rgba(0,0,0,0.5); }
@@ -212,7 +211,7 @@ h1{font-size:clamp(1.9rem,7vw,3rem)} h2{font-size:clamp(1.6rem,6vw,2.4rem)}
 .boom{position:fixed;z-index:50;pointer-events:none;animation:burst 2.4s ease-out forwards}
 @keyframes burst{to{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
 
-/* Draggable Anniversary Timer - MOVED TO BOTTOM RIGHT */
+/* Draggable Anniversary Timer */
 .floating-timer {
   position: fixed; bottom: 30px; right: 30px; z-index: 9999;
   background: rgba(255, 250, 241, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -228,7 +227,7 @@ h1{font-size:clamp(1.9rem,7vw,3rem)} h2{font-size:clamp(1.6rem,6vw,2.4rem)}
 .t-label { font-family: var(--hand); font-size: 1.1rem; color: var(--clay); line-height: 1; margin-bottom: 3px;}
 #timeText { font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em; }
 
-/* Mini game: Clouds & Sheep (Smooth Optimized) */
+/* Mini game: Clouds & Sheep (GPU Accelerated) */
 .meadow{position:relative;width:min(94vw,560px);height:min(50vh,340px);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);touch-action:none;cursor:grab;
   background:linear-gradient(#d3e5ee,#f4ecdb 64%,#a9bba3 64%,#8ea889)}
 .meadow .sun{position:absolute;top:4%;right:4%;width:62px;z-index:1;animation:spin 50s linear infinite;pointer-events:none}
@@ -246,7 +245,6 @@ h1{font-size:clamp(1.9rem,7vw,3rem)} h2{font-size:clamp(1.6rem,6vw,2.4rem)}
 .sheep .hp{position:absolute;left:50%;top:-1.2em;transform:translateX(-50%);font-size:.72rem;white-space:nowrap}
 .sheep.full .b{animation:hop .8s ease-in-out infinite}
 @keyframes hop{50%{transform:translateY(-14px)}}
-/* GPU Optimized Rain Drops */
 .meadow .drop{position:absolute;top:24%;width:3px;height:12px;border-radius:3px;background:#6fa8c8;pointer-events:none;z-index:2;animation:fall .7s cubic-bezier(0.4, 0, 1, 1) forwards;will-change:transform,opacity;}
 @keyframes fall{to{transform:translateY(150px);opacity:0;}}
 
@@ -404,7 +402,7 @@ async function fetchMemories() {
     });
   }
   buildGrid(); 
-  preloadImages(); // Added: Preload images directly after fetching for smooth slideshow
+  preloadImages(); 
 }
 
 function buildGrid() {
@@ -424,7 +422,7 @@ function buildGrid() {
   });
 }
 
-// IMAGE PRELOADING SYSTEM: Instantly loads images in the background
+// IMAGE PRELOADING SYSTEM
 function preloadImages() {
   Object.values(GALLERY).forEach(g => {
     g.photos.forEach(p => {
@@ -475,7 +473,7 @@ function show(id){
   if(id==='sg') startGame();
   if(id==='s4') typeLetter();
 }
-// Next and Prev Navigation Logic
+
 document.querySelectorAll('[data-next]').forEach(b => b.onclick = () => show(order[order.indexOf(cur)+1]));
 document.querySelectorAll('[data-prev]').forEach(b => b.onclick = () => show(order[order.indexOf(cur)-1]));
 
@@ -543,7 +541,7 @@ setInterval(() => {
   $('timeText').innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }, 1000);
 
-/* ====== SMOOTH OPTIMIZED MINI GAME: CLOUDS & SHEEP ====== */
+/* ====== SMOOTH OPTIMIZED MINI GAME ====== */
 const SHEEP_SVG = '<svg viewBox="0 0 70 54"><g fill="#5a4030"><rect x="22" y="40" width="5" height="12" rx="2.5"/><rect x="42" y="40" width="5" height="12" rx="2.5"/></g><g class="w"><circle cx="24" cy="24" r="14"/><circle cx="38" cy="19" r="14"/><circle cx="26" cy="34" r="12"/><circle cx="40" cy="34" r="12"/><circle cx="14" cy="32" r="9"/></g><ellipse cx="56" cy="27" rx="10" ry="9" fill="#5a4030"/><ellipse cx="50" cy="16" rx="3.5" ry="6" fill="#5a4030" transform="rotate(-30 50 16)"/><circle cx="59" cy="25" r="2.2" fill="#fff"/><circle cx="59.6" cy="25" r="1" fill="#2b1d14"/><ellipse cx="55" cy="31" rx="3" ry="2" fill="#e9b8b0"/></svg>';
 const STEM = '<path d="M16 31V17" stroke="#6f9a68" stroke-width="3" stroke-linecap="round"/>';
 const SPROUT_SVG = '<svg viewBox="0 0 32 32">' + STEM + '<ellipse cx="10" cy="15" rx="7" ry="4" fill="#8fbf86" transform="rotate(-25 10 15)"/><ellipse cx="22" cy="13" rx="7" ry="4" fill="#8fbf86" transform="rotate(25 22 13)"/></svg>';
@@ -569,7 +567,6 @@ function startGame(){
   const layout = () => slots.forEach((s, i) => { s.x = (i + .5) * W() / N; s.el.style.left = s.x + 'px'; });
   layout(); addEventListener('resize', layout);
 
-  // drag anywhere on the meadow to move the cloud
   const setCloud = x => { cx = Math.max(50, Math.min(W() - 50, x)); cloud.style.left = shade.style.left = cx + 'px'; };
   const moveTo = e => setCloud(e.clientX - field.getBoundingClientRect().left);
   setCloud(cx);
@@ -578,7 +575,6 @@ function startGame(){
   field.addEventListener('pointermove', e => { if(dragging) moveTo(e); });
   ['pointerup','pointercancel'].forEach(t => field.addEventListener(t, () => dragging = false));
 
-  // RequestAnimationFrame makes it extremely smooth vs standard setInterval
   function tick(now){
     const dt = Math.min(.05, (now - last) / 1000); last = now;
 
@@ -597,7 +593,6 @@ function startGame(){
       }
     });
     sheep.forEach(s => {
-      // weather logic
       if(Math.abs(s.x - cx) < 45){ s.wet = Math.min(1, s.wet + .22 * dt); s.heat = Math.max(0, s.heat - .3 * dt); }
       else { s.heat = Math.min(1, s.heat + .06 * dt); s.wet = Math.max(0, s.wet - .15 * dt); }
       if(s.heat >= 1) s.sick = 'hot'; else if(s.wet >= 1) s.sick = 'wet';
@@ -635,7 +630,7 @@ function startGame(){
     if(sheep.every(s => s.fed >= NEED)){                   
       $('gameMsg').textContent = "They're all happy now 🤍";
       $('gameNext').classList.add('show');
-      return; // Stops loop, unlocks next step
+      return; 
     }
     requestAnimationFrame(tick);
   }
