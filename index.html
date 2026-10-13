@@ -6,7 +6,7 @@
 <title>Our Memories 🤍</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=DM+Sans:wght@400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
 <!-- Supabase JS -->
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
   --cream:#faf3e8; --beige:#efe2cf; --paper:#fffaf1; --ink:#4b3a2f; --clay:#b9785f; --sage:#9fb39a; --blush:#e9b8b0;
@@ -156,7 +156,6 @@ h1{font-size:clamp(1.9rem,7vw,3rem)} h2{font-size:clamp(1.6rem,6vw,2.4rem)}
   animation-play-state: paused;
   position: relative;
 }
-
 .vinyl.spin { animation-play-state: running; }
 
 /* Spinning light reflection on the vinyl grooves */
@@ -165,21 +164,19 @@ h1{font-size:clamp(1.9rem,7vw,3rem)} h2{font-size:clamp(1.6rem,6vw,2.4rem)}
   background: conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.05) 45deg, transparent 90deg, rgba(255,255,255,0.05) 225deg, transparent 270deg);
   pointer-events: none;
 }
-
 /* Stationary Glare over the entire record */
 .record-wrapper::after {
   content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
   background: conic-gradient(from 120deg, transparent 0deg, rgba(255,255,255,0.15) 15deg, transparent 30deg, transparent 180deg, rgba(255,255,255,0.15) 195deg, transparent 210deg);
 }
 
-/* Center label with the Girlfriend's Photo */
+/* Center label with the Girlfriend's Photo (UPDATED TO PNG LINK) */
 .vinyl-label {
   width: 80px; height: 80px; border-radius: 50%;
-  background-image: url('https://cruvazcqzbnzubxpdlum.supabase.co/storage/v1/object/public/memory_media/IMG_9437.HEIC');
+  background-image: url('https://cruvazcqzbnzubxpdlum.supabase.co/storage/v1/object/public/memory_media/IMG_9437.png');
   background-size: cover; background-position: center;
   border: 2px solid #111; position: relative; z-index: 2;
 }
-/* Center hole */
 .vinyl-label::after {
   content:""; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   width: 14px; height: 14px; background: #e8e0d5; border-radius: 50%; box-shadow: inset 0 2px 5px rgba(0,0,0,0.6);
@@ -190,7 +187,6 @@ h1{font-size:clamp(1.9rem,7vw,3rem)} h2{font-size:clamp(1.6rem,6vw,2.4rem)}
 .tonearm-pivot { position: absolute; top: 0; left: 0; width: 30px; height: 30px; background: #ccc; border-radius: 50%; box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px #fff; border: 3px solid #888; }
 .tonearm-wand { position: absolute; top: 15px; left: 13px; width: 5px; height: 90px; background: linear-gradient(90deg, #999, #eee, #999); border-radius: 2.5px; box-shadow: 2px 2px 3px rgba(0,0,0,0.3); }
 .tonearm-head { position: absolute; bottom: 8px; left: 8px; width: 12px; height: 24px; background: #222; border-radius: 3px; transform: rotate(22deg); box-shadow: 2px 2px 3px rgba(0,0,0,0.5); }
-
 .record-wrapper.active .tonearm { transform: rotate(22deg); }
 @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -232,7 +228,31 @@ h1{font-size:clamp(1.9rem,7vw,3rem)} h2{font-size:clamp(1.6rem,6vw,2.4rem)}
 .t-label { font-family: var(--hand); font-size: 1.1rem; color: var(--clay); line-height: 1; margin-bottom: 3px;}
 #timeText { font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em; }
 
-@media (prefers-reduced-motion:reduce){.vinyl,.caret,.slide img{animation:none!important}.slide,.caption,.tonearm{transition:none!important}}
+/* Mini game: Clouds & Sheep (Smooth Optimized) */
+.meadow{position:relative;width:min(94vw,560px);height:min(50vh,340px);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);touch-action:none;cursor:grab;
+  background:linear-gradient(#d3e5ee,#f4ecdb 64%,#a9bba3 64%,#8ea889)}
+.meadow .sun{position:absolute;top:4%;right:4%;width:62px;z-index:1;animation:spin 50s linear infinite;pointer-events:none}
+.meadow .shade{position:absolute;bottom:2%;width:120px;height:34px;border-radius:50%;transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(rgba(50,75,95,.32),transparent 70%);transition:left .08s linear}
+.meadow .cloud{position:absolute;top:3%;left:50%;width:128px;z-index:3;transform:translateX(-50%);pointer-events:none;
+  filter:drop-shadow(0 6px 6px rgba(70,95,115,.28));transition:left .08s linear}
+.meadow .slot{position:absolute;bottom:9%;width:34px;height:34px;transform:translateX(-50%);transition:transform .3s}
+.slot svg{width:100%;height:100%;display:block}
+.meadow .sheep{position:absolute;left:0;bottom:5%;width:64px;z-index:2;--wool:#fffdf8;will-change:transform;}
+.sheep.hot{--wool:#ffc4b8}.sheep.wet{--wool:#c4d9e8}
+.sheep .b{display:block;will-change:transform;}
+.sheep .b svg{width:100%;display:block;filter:drop-shadow(0 2px 3px rgba(75,58,47,.25))}
+.sheep .w{fill:var(--wool);transition:fill .5s}
+.sheep .hp{position:absolute;left:50%;top:-1.2em;transform:translateX(-50%);font-size:.72rem;white-space:nowrap}
+.sheep.full .b{animation:hop .8s ease-in-out infinite}
+@keyframes hop{50%{transform:translateY(-14px)}}
+/* GPU Optimized Rain Drops */
+.meadow .drop{position:absolute;top:24%;width:3px;height:12px;border-radius:3px;background:#6fa8c8;pointer-events:none;z-index:2;animation:fall .7s cubic-bezier(0.4, 0, 1, 1) forwards;will-change:transform,opacity;}
+@keyframes fall{to{transform:translateY(150px);opacity:0;}}
+
+#gameNext{opacity:0;pointer-events:none;transition:opacity 1s; margin-top:20px;}
+#gameNext.show{opacity:1;pointer-events:auto}
+@media (prefers-reduced-motion:reduce){.vinyl,.caret,.slide img,.sheep.full .b{animation:none!important}.slide,.caption,.tonearm{transition:none!important}}
 </style>
 </head>
 <body>
@@ -304,6 +324,19 @@ h1{font-size:clamp(1.9rem,7vw,3rem)} h2{font-size:clamp(1.6rem,6vw,2.4rem)}
   <button class="btn" data-next>Next</button>
 </section>
 
+<!-- Game: Clouds & Sheep -->
+<section class="screen" id="sg">
+  <button class="btn-back" data-prev>← Back</button>
+  <h2>Help our little flock 🐑</h2>
+  <p class="hand" id="gameMsg" style="max-width:440px;line-height:1.3">drag the cloud: rain grows flowers for them to eat. Keep them from getting too hot or too wet!</p>
+  <div class="meadow" id="meadow">
+    <svg class="sun" viewBox="0 0 80 80"><g stroke="#f4c451" stroke-width="4" stroke-linecap="round"><path d="M40 6v9M40 65v9M6 40h9M65 40h9M16 16l6 6M64 16l-6 6M16 64l6-6M64 64l-6-6"/></g><circle cx="40" cy="40" r="17" fill="#f7cf63"/><circle cx="34" cy="38" r="1.8" fill="#5a4030"/><circle cx="46" cy="38" r="1.8" fill="#5a4030"/><path d="M34 45q6 5 12 0" stroke="#5a4030" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+    <div class="shade" id="shade"></div>
+    <svg class="cloud" id="cloud" viewBox="0 0 140 84"><g fill="#fff"><circle cx="44" cy="50" r="24"/><circle cx="72" cy="38" r="28"/><circle cx="102" cy="52" r="22"/><rect x="44" y="50" width="58" height="24" rx="12"/></g><circle cx="62" cy="52" r="2.8" fill="#5a4030"/><circle cx="84" cy="52" r="2.8" fill="#5a4030"/><ellipse cx="55" cy="59" rx="5" ry="3" fill="#f2c4bd"/><ellipse cx="91" cy="59" rx="5" ry="3" fill="#f2c4bd"/><path d="M69 57q4 4 8 0" stroke="#5a4030" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+  </div>
+  <button class="btn" id="gameNext" data-next>Read the Final Note</button>
+</section>
+
 <!-- Final Note -->
 <section class="screen" id="s4">
   <button class="btn-back" data-prev>← Back</button>
@@ -324,7 +357,8 @@ h1{font-size:clamp(1.9rem,7vw,3rem)} h2{font-size:clamp(1.6rem,6vw,2.4rem)}
 <script>
 const supabaseUrl = 'https://cruvazcqzbnzubxpdlum.supabase.co'; 
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNydXZhemNxemJuenVieHBkbHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3MzIxNjAsImV4cCI6MjEwNzMwODE2MH0.q0NwZhNTVtbxK_cIlHIs1qn6IRd2tZ4v73ov1SodILE'; 
-const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+let supabaseClient = null;
+try { supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey); } catch(err){ console.error('Supabase failed to load:', err); }
 
 const PIN = '1542026';
 const LETTER = `Sharon, I was just thinking... I really wish I could keep every single one of our memories in a little paper box. Whenever I miss u, I could just open it up, look inside, and relive everything we've shared. And every time we make new memories, I'd just keep adding them into that box.
@@ -348,7 +382,11 @@ const GALLERY = {
 };
 
 async function fetchMemories() {
-  const { data, error } = await supabaseClient.from('memories').select('*');
+  let data = null;
+  try {
+    if (!supabaseClient) throw new Error('Supabase client not available');
+    ({ data } = await supabaseClient.from('memories').select('*'));
+  } catch(err){ console.error('Could not load memories:', err); }
   if (data) {
     data.forEach(item => {
       let catKey = item.category;
@@ -366,6 +404,7 @@ async function fetchMemories() {
     });
   }
   buildGrid(); 
+  preloadImages(); // Added: Preload images directly after fetching for smooth slideshow
 }
 
 function buildGrid() {
@@ -382,6 +421,18 @@ function buildGrid() {
       openCine(g, t);
     };
     grid.appendChild(t);
+  });
+}
+
+// IMAGE PRELOADING SYSTEM: Instantly loads images in the background
+function preloadImages() {
+  Object.values(GALLERY).forEach(g => {
+    g.photos.forEach(p => {
+      if (p.src && !p.src.includes('.mp4')) {
+        const img = new Image();
+        img.src = p.src;
+      }
+    });
   });
 }
 
@@ -416,11 +467,12 @@ audio.addEventListener('pause', () => {
 });
 
 const $ = id => document.getElementById(id);
-const order = ['s1','s2','s3','s4'];
+const order = ['s1','s2','s3','sg','s4'];
 let cur = null;
 
 function show(id){
   if(cur) $(cur).classList.remove('active');$(id).classList.add('active'); cur = id;
+  if(id==='sg') startGame();
   if(id==='s4') typeLetter();
 }
 // Next and Prev Navigation Logic
@@ -475,7 +527,6 @@ function drag(e) {
   }
 }
 
-// Anniversary Date: April 15, 2026, 4:43 PM
 const anniversaryDate = new Date('2026-04-15T16:43:00').getTime();
 setInterval(() => {
   const now = new Date().getTime();
@@ -491,6 +542,105 @@ setInterval(() => {
   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
   $('timeText').innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }, 1000);
+
+/* ====== SMOOTH OPTIMIZED MINI GAME: CLOUDS & SHEEP ====== */
+const SHEEP_SVG = '<svg viewBox="0 0 70 54"><g fill="#5a4030"><rect x="22" y="40" width="5" height="12" rx="2.5"/><rect x="42" y="40" width="5" height="12" rx="2.5"/></g><g class="w"><circle cx="24" cy="24" r="14"/><circle cx="38" cy="19" r="14"/><circle cx="26" cy="34" r="12"/><circle cx="40" cy="34" r="12"/><circle cx="14" cy="32" r="9"/></g><ellipse cx="56" cy="27" rx="10" ry="9" fill="#5a4030"/><ellipse cx="50" cy="16" rx="3.5" ry="6" fill="#5a4030" transform="rotate(-30 50 16)"/><circle cx="59" cy="25" r="2.2" fill="#fff"/><circle cx="59.6" cy="25" r="1" fill="#2b1d14"/><ellipse cx="55" cy="31" rx="3" ry="2" fill="#e9b8b0"/></svg>';
+const STEM = '<path d="M16 31V17" stroke="#6f9a68" stroke-width="3" stroke-linecap="round"/>';
+const SPROUT_SVG = '<svg viewBox="0 0 32 32">' + STEM + '<ellipse cx="10" cy="15" rx="7" ry="4" fill="#8fbf86" transform="rotate(-25 10 15)"/><ellipse cx="22" cy="13" rx="7" ry="4" fill="#8fbf86" transform="rotate(25 22 13)"/></svg>';
+const FLOWER_SVG = '<svg viewBox="0 0 32 32">' + STEM + '<g fill="#f4b8b0"><circle cx="16" cy="6" r="5"/><circle cx="9" cy="11" r="5"/><circle cx="23" cy="11" r="5"/><circle cx="11" cy="18" r="5"/><circle cx="21" cy="18" r="5"/></g><circle cx="16" cy="12" r="4.5" fill="#f7cf63"/></svg>';
+
+let gameStarted = false;
+function startGame(){
+  if(gameStarted) return; gameStarted = true;
+  const field = $('meadow'), cloud = $('cloud'), shade =$('shade'), N = 6, NEED = 3, W = () => field.clientWidth;
+  let cx = W() / 2, dragging = false, dropT = 0, last = performance.now();
+
+  const slots = Array.from({length:N}, () => {
+    const el = document.createElement('div'); el.className = 'slot'; el.innerHTML = SPROUT_SVG; field.appendChild(el);
+    return {el, x:0, water:0, grown:false, taken:false};
+  });
+  const sheep = Array.from({length:3}, (_, i) => {
+    const el = document.createElement('div'); el.className = 'sheep';
+    el.innerHTML = '<span class="hp"></span><span class="b">' + SHEEP_SVG + '</span>'; field.appendChild(el);
+    return {el, b:el.querySelector('.b'), hp:el.querySelector('.hp'), x:W() * (.2 + .3 * i), v:(Math.random() < .5 ? -1 : 1) * 16,
+            target:null, eat:0, fed:0, heat:0, wet:0, sick:null};
+  });
+  
+  const layout = () => slots.forEach((s, i) => { s.x = (i + .5) * W() / N; s.el.style.left = s.x + 'px'; });
+  layout(); addEventListener('resize', layout);
+
+  // drag anywhere on the meadow to move the cloud
+  const setCloud = x => { cx = Math.max(50, Math.min(W() - 50, x)); cloud.style.left = shade.style.left = cx + 'px'; };
+  const moveTo = e => setCloud(e.clientX - field.getBoundingClientRect().left);
+  setCloud(cx);
+  
+  field.addEventListener('pointerdown', e => { dragging = true; field.setPointerCapture(e.pointerId); moveTo(e); });
+  field.addEventListener('pointermove', e => { if(dragging) moveTo(e); });
+  ['pointerup','pointercancel'].forEach(t => field.addEventListener(t, () => dragging = false));
+
+  // RequestAnimationFrame makes it extremely smooth vs standard setInterval
+  function tick(now){
+    const dt = Math.min(.05, (now - last) / 1000); last = now;
+
+    dropT += dt;                                           
+    if(dropT > .09){
+      dropT = 0;
+      const d = document.createElement('i'); d.className = 'drop';
+      d.style.left = (cx + (Math.random() - .5) * 80) + 'px';
+      d.onanimationend = () => d.remove(); field.appendChild(d);
+    }
+    slots.forEach(s => {                                   
+      if(!s.grown && Math.abs(s.x - cx) < 45){
+        s.water += dt;
+        s.el.style.transform = `translateX(-50%) scale(${1 + Math.min(s.water / 1.4, 1) * .5})`;
+        if(s.water >= 1.4){ s.grown = true; s.el.innerHTML = FLOWER_SVG; }
+      }
+    });
+    sheep.forEach(s => {
+      // weather logic
+      if(Math.abs(s.x - cx) < 45){ s.wet = Math.min(1, s.wet + .22 * dt); s.heat = Math.max(0, s.heat - .3 * dt); }
+      else { s.heat = Math.min(1, s.heat + .06 * dt); s.wet = Math.max(0, s.wet - .15 * dt); }
+      if(s.heat >= 1) s.sick = 'hot'; else if(s.wet >= 1) s.sick = 'wet';
+      else if(s.heat < .5 && s.wet < .5) s.sick = null;
+      
+      s.el.classList.toggle('hot', s.heat > .55);
+      s.el.classList.toggle('wet', s.wet > .55);
+      
+      const label = s.sick ? (s.sick === 'hot' ? '🥵' : '🤧') : '💖'.repeat(s.fed) + '🤍'.repeat(NEED - s.fed);
+      if(s.hp.textContent !== label) s.hp.textContent = label;
+
+      if(!s.sick && s.fed < NEED){                         
+        if(!s.target){
+          let best = null;
+          slots.forEach(t => { if(t.grown && !t.taken && (!best || Math.abs(t.x - s.x) < Math.abs(best.x - s.x))) best = t; });
+          if(best){ best.taken = true; s.target = best; }
+        }
+        if(s.target){
+          const dx = s.target.x - s.x;
+          if(Math.abs(dx) > 5){ s.x += Math.sign(dx) * 55 * dt; s.b.style.transform = dx < 0 ? 'scaleX(-1)' : ''; }
+          else if((s.eat += dt) > 1){
+            const t = s.target; t.grown = t.taken = false; t.water = 0; t.el.innerHTML = SPROUT_SVG; t.el.style.transform = 'translateX(-50%)';
+            s.target = null; s.eat = 0; s.fed++;
+            if(s.fed >= NEED) s.el.classList.add('full');
+          }
+        } else {
+          s.x += s.v * dt;
+          if(s.x < 30 || s.x > W() - 30 || Math.random() < .004){ s.v = -s.v; s.x = Math.max(30, Math.min(W() - 30, s.x)); }
+          s.b.style.transform = s.v < 0 ? 'scaleX(-1)' : '';
+        }
+      }
+      s.el.style.transform = `translateX(calc(${s.x}px - 50%))`;
+    });
+
+    if(sheep.every(s => s.fed >= NEED)){                   
+      $('gameMsg').textContent = "They're all happy now 🤍";
+      $('gameNext').classList.add('show');
+      return; // Stops loop, unlocks next step
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
 
 /* ====== SLIDESHOW ====== */
 const cine = $('cine'), stage = $('stage'), progress =$('progress');
@@ -527,7 +677,6 @@ function go(n, dir = 1){
   $('cineCount').textContent = `${idx + 1} / ${set.length}`;
 }
 
-// UPDATE: Close slideshow automatically on last picture's Next click
 const next = () => {
   if (idx === set.length - 1) closeCine();
   else go(idx + 1, 1);
@@ -560,6 +709,7 @@ cine.addEventListener('touchend', e => {
   if(Math.abs(dx) > 50) dx < 0 ? next() : prev();
 });
 
+/* ====== FINAL LETTER ====== */
 let typed = false;
 function typeLetter(){
   if(typed) return; typed = true;
